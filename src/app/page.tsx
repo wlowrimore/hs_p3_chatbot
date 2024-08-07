@@ -1,3 +1,5 @@
+import "./globals.css";
+
 import Image from "next/image";
 import MainContainer from "./components/main/MainContainer";
 

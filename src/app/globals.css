@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --primary-bg-color: #f5f5f5;
-    --secondary-bg-color: #ffffff;
-    --primary-text-color: #000000;
-    --secondary-text-color: #ffffff;
-  }
-}
-
 .glow {
   box-shadow: 0px 0px 40px rgba(212, 143, 247, 0.6),
     0px 0px 40px rgba(145, 54, 249, 0.4);
