@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import Image from "next/image";
+import Loading from "./loading";
 import MainContainer from "./components/main/MainContainer";
 
 export default function Home() {
