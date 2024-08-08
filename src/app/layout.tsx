@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SessionWrapper>
-          <main>{children}</main>
+          <main className="bg-gray-800">{children}</main>
         </SessionWrapper>
       </body>
     </html>

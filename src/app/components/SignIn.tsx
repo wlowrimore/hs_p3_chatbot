@@ -23,6 +23,7 @@ const SignIn = () => {
     <div className="glow w-full max-w-[30rem] p-8 border-[#64329e] border rounded-3xl">
       <div className="flex justify-center pb-10 pt-4">
         <Image
+          priority
           src={SiteLogo}
           alt="Site Logo"
           width={500}

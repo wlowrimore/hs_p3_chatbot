@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { IoMdLogOut } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -8,8 +9,32 @@ import SiteLogo from "../../../public/logos/site-logo.webp";
 import { getFirstName } from "../../lib/utils";
 import SkeletonForm from "./ui/SkeletonForm";
 
+interface WelcomeFormType {
+  serviceType: string;
+  serviceLocation: [
+    {
+      city: string;
+      state: string;
+      country: string;
+    }
+  ];
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
 const WelcomeForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [serviceDetails, setServiceDetails] = useState<WelcomeFormType>({
+    serviceType: "",
+    serviceLocation: [{ city: "", state: "", country: "" }],
+
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => {},
+  });
+
+  const router = useRouter();
+  const { data: session } = useSession();
   const name = getFirstName();
 
   useEffect(() => {
@@ -19,6 +44,25 @@ const WelcomeForm: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [isLoading]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setServiceDetails({
+      ...serviceDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleInputChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(serviceDetails);
+    console.log("Checked: ", isChecked);
+
+    router.push("/chat-with-kal");
+  };
 
   return (
     <>
@@ -38,6 +82,7 @@ const WelcomeForm: React.FC = () => {
               />
             </p>
             <Image
+              priority
               src={SiteLogo}
               alt="Site Logo"
               width={500}
@@ -46,7 +91,7 @@ const WelcomeForm: React.FC = () => {
             />
           </div>
           <div className="w-full flex flex-col">
-            <form>
+            <form onSubmit={handleSubmit}>
               <h2 className="text-lg font-bold tracking-wide pt-2">
                 Welcome {name}!
               </h2>
@@ -61,9 +106,11 @@ const WelcomeForm: React.FC = () => {
                   <label className="text-sm">Service Type</label>
                   <input
                     type="text"
+                    name="serviceType"
+                    onChange={handleInputChange}
                     aria-label="Service Type"
                     placeholder="technology / shopping / repairs / etc"
-                    className="w-full bg-purple-200 text-neutral-950 px-2 py-1 rounded-xl placeholder:text-sm italic placeholder:text-neutral-700"
+                    className="w-full bg-purple-200 text-neutral-950 px-2 py-1 rounded-xl placeholder:text-sm placeholder:italic placeholder:text-neutral-600"
                   />
                 </div>
                 <div className="w-full flex flex-col gap-1">
@@ -72,16 +119,22 @@ const WelcomeForm: React.FC = () => {
                   </label>
                   <input
                     type="text"
+                    name="serviceLocation"
+                    onChange={handleInputChange}
                     aria-label="Location Where Service Needed"
+                    required
                     placeholder="city / state / country"
-                    className="w-full bg-purple-200 text-neutral-950 px-2 py-1 rounded-xl placeholder:text-sm italic placeholder:text-neutral-700"
+                    className="w-full bg-purple-200 text-neutral-950 px-2 py-1 rounded-xl placeholder:text-sm placeholder:italic placeholder:text-neutral-600"
                   />
                 </div>
               </div>
               <div className="flex items-center justify-center gap-2 mb-6">
                 <input
                   type="checkbox"
+                  name="terms"
+                  onChange={handleInputChecked}
                   aria-label="I agree to the terms and conditions"
+                  required
                   className="w-3 h-3 cursor-pointer"
                 />
                 <p className="text-sm">
@@ -93,8 +146,13 @@ const WelcomeForm: React.FC = () => {
               </div>
               <div className="flex justify-center my-4">
                 <button
+                  disabled={
+                    !isChecked ||
+                    !serviceDetails.serviceType ||
+                    !serviceDetails.serviceLocation
+                  }
                   type="submit"
-                  className="w-[75%] py-1 button-glow rounded-full"
+                  className="disabled:opacity-40 w-full max-w-[75%] py-1 button-glow rounded-full"
                 >
                   Let&apos;s Go!
                 </button>
