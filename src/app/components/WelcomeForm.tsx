@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import {
+  useServiceDetails,
+  WelcomeFormType,
+} from "../../providers/ServiceDetailsProvider";
 import { useRouter } from "next/navigation";
 import { IoMdLogOut } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
@@ -9,28 +13,22 @@ import SiteLogo from "../../../public/logos/site-logo.webp";
 import { getFirstName } from "../../lib/utils";
 import SkeletonForm from "./ui/SkeletonForm";
 
-interface WelcomeFormType {
-  serviceType: string;
-  serviceLocation: [
-    {
-      city: string;
-      state: string;
-      country: string;
-    }
-  ];
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+// interface WelcomeFormType {
+//   serviceType: string;
+//   serviceLocation: string;
+//   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+// }
 
 const WelcomeForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [serviceDetails, setServiceDetails] = useState<WelcomeFormType>({
     serviceType: "",
-    serviceLocation: [{ city: "", state: "", country: "" }],
+    serviceLocation: "",
 
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => {},
+    // handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    // handleSubmit: (e: React.FormEvent<HTMLFormElement>) => {},
   });
 
   const router = useRouter();
@@ -46,10 +44,13 @@ const WelcomeForm: React.FC = () => {
   }, [isLoading]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setServiceDetails({
-      ...serviceDetails,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setServiceDetails((prevState: any) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log("serviceDetails from WelcomeForm: ", serviceDetails);
   };
 
   const handleInputChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +59,17 @@ const WelcomeForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    localStorage.setItem("serviceType", serviceDetails.serviceType);
+    localStorage.setItem("serviceLocation", serviceDetails.serviceLocation);
     console.log(serviceDetails);
     console.log("Checked: ", isChecked);
 
-    router.push("/chat-with-kal");
+    if (isChecked) {
+      router.push("/chat-with-kal");
+    } else {
+      alert("Please agree to the terms and conditions");
+    }
   };
 
   return (
@@ -107,6 +115,7 @@ const WelcomeForm: React.FC = () => {
                   <input
                     type="text"
                     name="serviceType"
+                    value={serviceDetails.serviceType}
                     onChange={handleInputChange}
                     aria-label="Service Type"
                     placeholder="technology / shopping / repairs / etc"
@@ -120,6 +129,7 @@ const WelcomeForm: React.FC = () => {
                   <input
                     type="text"
                     name="serviceLocation"
+                    value={serviceDetails.serviceLocation}
                     onChange={handleInputChange}
                     aria-label="Location Where Service Needed"
                     required
