@@ -4,8 +4,8 @@
 
 @layer base {
   ::-webkit-scrollbar {
-    width: 0.25rem;
-    height: 2rem;
+    width: 0.2rem;
+    height: 1rem;
   }
 
   ::-webkit-scrollbar-track {
@@ -14,7 +14,7 @@
 
   ::-webkit-scrollbar-thumb {
     background: #4f46e5;
-    border-radius: 1rem;
+    border-radius: 5rem;
   }
 }
 

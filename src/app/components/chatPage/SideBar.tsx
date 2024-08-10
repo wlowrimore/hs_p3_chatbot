@@ -105,7 +105,7 @@ const SideBar = () => {
       </nav>
 
       {/* User Profile */}
-      <div className="sticky bottom-20 mt-auto flex items-center justify-start w-full gap-2 mx-auto">
+      <div className="sticky bottom-20 mt-auto flex items-center justify-start w-full h-string gap-2 mx-auto">
         <Image
           src={session?.user?.image!}
           alt="profile"
