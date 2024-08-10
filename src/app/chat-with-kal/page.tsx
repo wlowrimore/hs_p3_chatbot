@@ -15,7 +15,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="w-screen min-h-screen flex flex-col justify-center items-center mx-auto px-24">
+    <div className="w-screen min-h-screen flex flex-col justify-center items-center mx-auto xl:px-24">
       <ChatContainer />
     </div>
   );

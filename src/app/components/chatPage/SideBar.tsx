@@ -28,7 +28,7 @@ const SideBar = () => {
   const serviceDetails = { storedServiceType, storedServiceLocation };
 
   return (
-    <div className="pt-6 flex flex-col min-h-screen">
+    <div className="hidden pt-6 lg:flex flex-col min-h-screen">
       <div className="flex items-center justify-start w-full gap-2 mx-auto my-8">
         <Image
           src={SiteLogo}
@@ -105,7 +105,7 @@ const SideBar = () => {
       </nav>
 
       {/* User Profile */}
-      <div className="sticky bottom-20 mt-auto flex items-center justify-start w-full h-string gap-2 mx-auto">
+      <div className="sticky bottom-24 mt-auto flex items-center justify-start w-full gap-2 mx-auto">
         <Image
           src={session?.user?.image!}
           alt="profile"

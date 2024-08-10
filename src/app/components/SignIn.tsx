@@ -20,7 +20,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="glow w-full max-w-[30rem] p-8 border-[#64329e] border rounded-3xl">
+    <div className="glow w-full max-w-[30rem] p-3 md:p-8 border-[#64329e] border rounded-3xl">
       <div className="flex justify-center pb-10 pt-4">
         <Image
           priority
@@ -53,7 +53,7 @@ const SignIn = () => {
       <section className="w-full h-[6rem] flex items-center justify-center mt-4">
         <div
           onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="flex items-center justify-center gap-2 cursor-pointer button-glow max-w-[75%] py-2 px-4 bg-neutral-950/90 text-white rounded-full opacity-80 border border-zinc-600 hover:text-[#cba9f2]"
+          className="flex items-center justify-center gap-2 cursor-pointer button-glow max-w-[75%] py-2 px-4 text-sm md:text-lg bg-neutral-950/90 text-white rounded-full opacity-80 border border-zinc-600 hover:text-[#cba9f2]"
         >
           <Image
             src={GoogleLogo}
