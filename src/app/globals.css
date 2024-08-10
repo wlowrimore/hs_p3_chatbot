@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  ::-webkit-scrollbar {
+    width: 0.25rem;
+    height: 2rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4f46e5;
+    border-radius: 1rem;
+  }
+}
+
 .glow {
-  box-shadow: 0px 0px 40px rgba(212, 143, 247, 0.6),
+  box-shadow: 0px 0px 10px rgba(212, 143, 247, 0.6),
     0px 0px 40px rgba(145, 54, 249, 0.4);
 }
 

@@ -77,26 +77,26 @@ const SideBar = () => {
       <nav className="my-2 text-neutral-300">
         <ul className="w-full flex flex-col gap-3">
           <Link href="/">
-            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
+            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 button-glow hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
               <RiHome2Line className="w-5 h-5" />
               <span>Home</span>
             </li>
           </Link>
           <Link href="#">
-            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
+            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 button-glow hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
               <RiMailSendLine className="w-5 h-5" />
               <span>Mailing List</span>
             </li>
           </Link>
           <Link href="#">
-            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
+            <li className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 button-glow hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200">
               <RiArchiveStackLine className="w-5 h-5" />
               <span>Archived Chats</span>
             </li>
           </Link>
           <li
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-2 text-neutral-400 hover:text-neutral-300 button-glow hover:bg-gray-700/30 rounded-full px-4 py-2 transition-all duration-200 cursor-pointer"
           >
             <RiLogoutCircleLine className="w-5 h-5" />
             <span>Sign Out</span>
@@ -105,13 +105,13 @@ const SideBar = () => {
       </nav>
 
       {/* User Profile */}
-      <div className="sticky bottom-10 mt-auto flex items-center justify-start w-full gap-2 mx-auto">
+      <div className="sticky bottom-20 mt-auto flex items-center justify-start w-full gap-2 mx-auto">
         <Image
           src={session?.user?.image!}
           alt="profile"
           width={200}
           height={200}
-          className="w-12 h-12 rounded-full"
+          className="w-12 h-12 rounded-full border border-[#64329e]"
         />
         <div className="flex flex-col">
           <p className="text-sm text-neutral-200 tracking-wider">
