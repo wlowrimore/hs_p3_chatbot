@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const SkeletonForm = () => {
   return (
-    <section className="glow w-[21.5rem] xl:w-[30rem] p-8 border-[#64329e] border rounded-3xl flex flex-col items-center my-24 mx-auto">
-      <div className="flex justify-center pb-10 pt-4">
+    <section className="glow w-[21.5rem] xl:w-[30rem] h-screen p-8 border-[#64329e] border rounded-3xl flex flex-col items-center mx-auto">
+      <div className="flex justify-center items-center pb-10 pt-4">
         <Skeleton className="rounded-full w-[8rem] h-[8rem] bg-purple-400/20" />
       </div>
       <div className="w-full flex flex-col">

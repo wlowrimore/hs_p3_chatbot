@@ -60,7 +60,7 @@ const BottomBar = () => {
         </p>
       </div>
       {isMenuVisible && (
-        <Fade duration={1000} triggerOnce={true}>
+        <Fade duration={700} triggerOnce={true}>
           <nav className="absolute z-50 right-[50%] translate-x-[50%] top-24 bg-gray-800/90 rounded-xl glow shadow-[#64329e] w-[20rem] h-[23rem] flex flex-col justify-center items-center text-neutral-300">
             <div className="flex items-center gap-2 pb-2">
               <Image

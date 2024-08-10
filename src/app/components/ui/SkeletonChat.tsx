@@ -9,7 +9,7 @@ const SkeletonChat = () => {
         <Skeleton className="w-full bg-white/5 h-2rem rounded-xl px-6" />
       </section>
       <Skeleton className="flex xl:border-r border-white/5 w-full">
-        <Skeleton className="hidden mt-12  mb-4 max-w-[20rem] bg-white/5 rounded-xl w-full xl:flex flex-col px-6 xl:border-r border-white/5">
+        <Skeleton className="hidden mt-12 min-h-screen mb-4 max-w-[20rem] bg-white/5 rounded-xl w-full xl:flex flex-col px-6 xl:border-r border-white/5">
           <div className="flex items-center justify-start w-full gap-2 mx-auto my-8">
             <Skeleton className="w-16 h-14 rounded-full" />
             <div className="flex flex-col space-y-[-0.4rem]">
