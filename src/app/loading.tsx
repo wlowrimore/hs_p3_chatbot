@@ -1,7 +1,5 @@
 import SkeletonForm from "./components/ui/SkeletonForm";
 
-const Loading = () => {
+export default function LoadingForm() {
   return <SkeletonForm />;
-};
-
-export default Loading;
+}

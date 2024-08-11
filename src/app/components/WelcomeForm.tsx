@@ -77,7 +77,7 @@ const WelcomeForm: React.FC = () => {
       {isLoading ? (
         <SkeletonForm />
       ) : (
-        <section className="glow w-full max-w-[30rem] p-8 border-[#64329e] border rounded-3xl">
+        <section className="glow w-full xl:max-w-[30rem] p-8 border-[#64329e] border rounded-3xl">
           <div className="flex justify-center pb-10 pt-4">
             <p
               onClick={() => signOut()}
