@@ -35,7 +35,7 @@ const BottomBar = () => {
   const serviceDetails = { storedServiceType, storedServiceLocation };
 
   return (
-    <div className="lg:hidden flex justify-between mx-auto px-4 pb-6 w-full">
+    <div className="md:hidden flex justify-between mx-auto px-4 pb-6 w-full">
       <div className="flex items-center gap-1">
         <Image
           src={SiteLogo}

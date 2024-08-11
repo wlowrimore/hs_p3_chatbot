@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     // Make the call to OpenAI using the new client
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini", // You can use a different model if needed
-      messages: messages,     // Pass the messages array to OpenAI
+      messages: messages, // Pass the messages array to OpenAI
     });
 
     // Extract the assistant's reply from the response

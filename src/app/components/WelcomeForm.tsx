@@ -46,7 +46,7 @@ const WelcomeForm: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setServiceDetails((prevState: any) => ({
+    setServiceDetails((prevState: WelcomeFormType) => ({
       ...prevState,
       [name]: value,
     }));
@@ -66,6 +66,7 @@ const WelcomeForm: React.FC = () => {
     console.log("Checked: ", isChecked);
 
     if (isChecked) {
+      setIsLoading(false);
       router.push("/chat-with-kal");
     } else {
       alert("Please agree to the terms and conditions");
@@ -147,7 +148,7 @@ const WelcomeForm: React.FC = () => {
                   required
                   className="w-3 h-3 cursor-pointer"
                 />
-                <p className="text-sm">
+                <p className="text">
                   I have read and I agree with the&nbsp;
                   <a href="#" className="text-[#5dbbfd] underline">
                     terms and conditions

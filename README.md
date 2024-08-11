@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Nunito Sans, a custom Google Font.
 
-## Getting Started
+## Deployed on Vercel
 
-First, run the development server:
+Visit KAL [here](https://headstarter-p2-pantry-tracker.vercel.app/).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<img src="public/readme-images/signin.webp" alt="William Lowrimore" width="800" height="700">
+<img src="public/readme-images/welcome.webp" alt="William Lowrimore" width="800" height="700">
+<img src="public/readme-images/fullchat.webp" alt="William Lowrimore" width="800" height="700">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org)
+- [NextAuth](https://nextauth.com)
+- [Shadcn](https://shadcn.com)
+- [Open AI](https://platform.openai.com)
+- [Langchain](NPM)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Resources
 
-## Learn More
+- [NextJS Docs](https://https://nextjs.org/docs)
+- [Next Auth Docs](https://https:nextauth.com/docs)
+- [Shadcn Docs](https://shadcn.com/docs)
+- [Google Docs](https://docs.google.com)
+- [OpenAI Docs](https://platform.openai/docs)
+- [Codeium AI](https://codeium.com)
+- [Gemini AI](https://gemini.google.com)
 
-To learn more about Next.js, take a look at the following resources:
+## Contact Contributors
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### William Lowrimore (Frontend and OpenAI)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [wlowrimore@gmail.com](mailto://wlowrimore@gmail.com)
+- [github/wlowrimore](https://github.com/wlowrimore)
+- [williamlowrimore.com](http://williamlowrimore.com)
+- [linkedIn/william-lowrimore-dev](https://linkedin.com/in/william-lowrimore-dev)
 
-## Deploy on Vercel
+### Muhammad Amir (Frontend and OpenAI)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [7mramir@google.com](mailto://7mramir@google.com)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Afrah Kausar (RAG AWS)
+
+- [afrahkausar2020@gmail.com](mailto://afrahkausar2020@gmail.com)

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { getFirstName } from "@/lib/utils";
 import { ServiceDetailsProvider } from "@/providers/ServiceDetailsProvider";
 import SideBar from "./SideBar";
 import { RiGradienterLine } from "react-icons/ri";
@@ -21,19 +22,47 @@ const ChatContainer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { data: session } = useSession();
-  const name = session?.user?.name || "User"; // Default to "User" if the name is undefined
-  const userImage = session?.user?.image || "/default-user-avatar.png"; // Default image
+  const chatHistoryRef = useRef<HTMLDivElement>(null);
+  const [userScrolled, setUserScrolled] = useState<boolean>(false);
+
+  const name = getFirstName() || "User";
+  const userImage = session?.user?.image || "/default-user-avatar.png";
 
   const serviceType = localStorage.getItem("serviceType") || "our services";
+
   const serviceLocation =
-    localStorage.getItem("serviceLocation") || "your area";
+    localStorage.getItem("serviceLocation") || "your location";
 
   useEffect(() => {
-    const storedMessages = localStorage.getItem("chatMessages");
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
+    if (
+      typeof window !== "undefined" &&
+      typeof window.localStorage !== "undefined"
+    ) {
+      const storedMessages = localStorage.getItem("chatMessages");
+      if (storedMessages) {
+        setMessages(JSON.parse(storedMessages));
+        scrollToBottom();
+      }
     }
-  }, []);
+  }, [messages]);
+
+  const handleScroll = () => {
+    const element = chatHistoryRef.current;
+    if (element) {
+      const isNearBottom =
+        element.scrollTop + element.clientHeight >= element.scrollHeight - 10;
+      setUserScrolled(!isNearBottom);
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (!userScrolled) {
+      chatHistoryRef.current?.scrollTo({
+        top: chatHistoryRef.current?.scrollHeight || 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -102,77 +131,83 @@ const ChatContainer = () => {
                   <SideBar />
                 </ServiceDetailsProvider>
               </aside>
+              <main className="bg-[url('/logos/site-logo-bg-sm.webp')] md:bg-[url('/logos/site-logo-bg.webp')] bg-no-repeat bg-center flex-1 flex-col px-4 md:px-8 pt-14 overflow-y-auto">
+                <div className="w-full h-full bg-gray-800/95">
+                  <h1 className="text-3xl text-neutral-100">
+                    What can I help you with, {name}?
+                  </h1>
+                  <p className="text-gray-400 text-[1.4rem]">
+                    I see that you are interested in {serviceType} in and around{" "}
+                    {serviceLocation}.
+                  </p>
+                  <p className="text-gray-400 text-[1.4rem]">
+                    Please feel free to ask me any questions you may have.
+                  </p>
+
+                  {/* Chat Interaction Window */}
+                  <section className="mt-6 w-full flex flex-col">
+                    <div
+                      ref={chatHistoryRef}
+                      onScroll={handleScroll}
+                      className="w-full my-6 max-h-[40rem] min-h-[40rem] overflow-y-auto bg-white/5 rounded-2xl border border-[#4f2d78]"
+                    >
+                      <div className="w-full flex justify-end">
+                        <button className="text-sm text-neutral-300 font-semibold tracking-wider uppercase rounded-bl-[0.7rem] bg-[#4f2d78] hover:text-white hover:bg-[#3d1e61] transition duration-200 px-4 py-2 border border-[#4f2d78] hover:border hover:border-neutral-600">
+                          archive this chat
+                        </button>
+                      </div>
+                      {messages.map((message, index) => (
+                        <div
+                          key={index}
+                          className={`flex items-center gap-2 w-full p-6 ${
+                            message.role === "user"
+                              ? "justify-start"
+                              : "justify-end"
+                          }`}
+                        >
+                          {message.role === "user" && (
+                            <Image
+                              src={userImage}
+                              alt={name}
+                              width={40}
+                              height={40}
+                              className="w-10 h-10 rounded-full border border-[#9081a1] bg-white/10"
+                            />
+                          )}
+                          <p
+                            className={`text-neutral-200 ${
+                              message.role === "user"
+                                ? "text-right"
+                                : "text-left"
+                            }`}
+                          >
+                            {message.content}
+                          </p>
+                        </div>
+                      ))}
+                      {isLoading && (
+                        <div className="flex items-center justify-center p-4">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+                        </div>
+                      )}
+                    </div>
+                    <form onSubmit={handleSubmit} className="flex items-center">
+                      <input
+                        type="text"
+                        value={prompt}
+                        onChange={handleOnChange}
+                        placeholder="Type Here"
+                        className="w-full h-[4rem] my-6 py-2 px-4 rounded-l-2xl border border-[#4f2d78] bg-white/10 outline-none text-[1.3rem]"
+                      />
+                      <button type="submit" disabled={isLoading}>
+                        <RiGradienterLine className="w-16 h-16 p-3 bg-white/10 text-purple-400 cursor-pointer hover:text-neutral-400 transition duration-200 rounded-r-2xl" />
+                      </button>
+                    </form>
+                  </section>
+                </div>
+              </main>
             </div>
           </div>
-          <main className="bg-[url('/logos/site-logo-bg.webp')] bg-no-repeat bg-center flex-1 flex-col px-8 pt-14 overflow-y-auto">
-            <div className="w-full h-full bg-gray-800/95">
-              <h1 className="text-3xl text-neutral-100">
-                What can I help you with, {name}?
-              </h1>
-              <p className="text-gray-400 text-[1.4rem]">
-                I see that you are interested in {serviceType} in and around{" "}
-                {serviceLocation}.
-              </p>
-              <p className="text-gray-400 text-[1.4rem]">
-                Please feel free to ask me any questions you may have.
-              </p>
-
-              {/* Chat Interaction Window */}
-              <section className="mt-6 w-full flex flex-col">
-                <div className="w-full my-6 max-h-[40rem] min-h-[40rem] overflow-y-auto bg-white/5 rounded-2xl border border-[#4f2d78]">
-                  <div className="w-full flex justify-end">
-                    <button className="text-sm text-neutral-300 font-semibold tracking-wider uppercase rounded-bl-[0.7rem] bg-[#4f2d78] hover:text-white hover:bg-[#3d1e61] transition duration-200 px-4 py-2 border border-[#4f2d78] hover:border hover:border-neutral-600">
-                      archive this chat
-                    </button>
-                  </div>
-                  {messages.map((message, index) => (
-                    <div
-                      key={index}
-                      className={`flex items-start gap-2 w-full p-6 ${
-                        message.role === "user"
-                          ? "justify-end"
-                          : "justify-start"
-                      }`}
-                    >
-                      {message.role === "user" && (
-                        <Image
-                          src={userImage}
-                          alt={name}
-                          width={40}
-                          height={40}
-                          className="w-10 h-10 rounded-full border border-[#9081a1] bg-white/10"
-                        />
-                      )}
-                      <p
-                        className={`text-neutral-200 ${
-                          message.role === "user" ? "text-right" : "text-left"
-                        }`}
-                      >
-                        {message.content}
-                      </p>
-                    </div>
-                  ))}
-                  {isLoading && (
-                    <div className="flex items-center justify-center p-4">
-                      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
-                    </div>
-                  )}
-                </div>
-                <form onSubmit={handleSubmit} className="flex items-center">
-                  <input
-                    type="text"
-                    value={prompt}
-                    onChange={handleOnChange}
-                    placeholder="Type Here"
-                    className="w-full h-[4rem] my-6 py-2 px-4 rounded-l-2xl border border-[#4f2d78] bg-white/10 outline-none text-[1.3rem]"
-                  />
-                  <button type="submit" disabled={isLoading}>
-                    <RiGradienterLine className="w-16 h-16 p-3 bg-white/10 text-purple-400 cursor-pointer hover:text-neutral-400 transition duration-200 rounded-r-2xl" />
-                  </button>
-                </form>
-              </section>
-            </div>
-          </main>
         </>
       )}
     </>

@@ -1,33 +1,33 @@
-"use client";
-
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { Metadata } from "next";
 import ChatContainer from "../components/chatPage/ChatContainer";
-import { ServiceDetailsProvider } from "@/providers/ServiceDetailsProvider";
+
+export const metadata: Metadata = {
+  title: "KAL",
+  description:
+    "KAL is a customer service AI chatbot assisting users in their daily life.",
+  keywords: "chatbot, customer service, AI, chat, KAL",
+  openGraph: {
+    title: "KAL",
+    description:
+      "KAL is a customer service AI chatbot assist users in their daily life.",
+    url: "https://www.kal.ai",
+    siteName: "KAL",
+    images: [
+      {
+        url: "https://www.kal.ai/api/og",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
+};
 
 export default function ChatPage() {
-  const router = useRouter();
-
-  const handleBack = () => {
-    router.push("/");
-  };
-
   return (
-    <>
-      <div className="w-screen min-h-screen flex flex-col justify-center items-center mx-auto px-24">
-        <div>
-          <Image
-            src="/logos/site-logo.webp"
-            alt="Site Logo"
-            width={100}
-            height={100}
-          />
-        </div>
-      </div>
-      <div className="w-screen min-h-screen flex flex-col justify-center items-center mx-auto xl:px-24">
-        <ChatContainer />
-      </div>
-    </>
+    <div className="w-screen min-h-screen flex justify-center items-center mx-auto xl:px-24">
+      <ChatContainer />
+    </div>
   );
 }
