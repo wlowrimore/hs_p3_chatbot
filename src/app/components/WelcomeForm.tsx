@@ -6,19 +6,12 @@ import {
   WelcomeFormType,
 } from "../../providers/ServiceDetailsProvider";
 import { useRouter } from "next/navigation";
+import { useExtractFirstName } from "../hooks/useExtractFirstName";
 import { IoMdLogOut } from "react-icons/io";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import SiteLogo from "../../../public/logos/site-logo.webp";
-import { getFirstName } from "../../lib/utils";
 import SkeletonForm from "./ui/SkeletonForm";
-
-// interface WelcomeFormType {
-//   serviceType: string;
-//   serviceLocation: string;
-//   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-//   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-// }
 
 const WelcomeForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,14 +19,11 @@ const WelcomeForm: React.FC = () => {
   const [serviceDetails, setServiceDetails] = useState<WelcomeFormType>({
     serviceType: "",
     serviceLocation: "",
-
-    // handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
-    // handleSubmit: (e: React.FormEvent<HTMLFormElement>) => {},
   });
 
   const router = useRouter();
   const { data: session } = useSession();
-  const name = getFirstName();
+  const name = useExtractFirstName() || "User";
 
   useEffect(() => {
     const timer = setTimeout(() => {

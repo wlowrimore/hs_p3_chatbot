@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
-import { getFirstName } from "@/lib/utils";
+import { useExtractFirstName } from "@/app/hooks/useExtractFirstName";
 import { ServiceDetailsProvider } from "@/providers/ServiceDetailsProvider";
 import SideBar from "./SideBar";
 import { RiGradienterLine } from "react-icons/ri";
@@ -22,10 +22,10 @@ const ChatContainer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { data: session } = useSession();
+  const name = useExtractFirstName() || "User";
   const chatHistoryRef = useRef<HTMLDivElement>(null);
   const [userScrolled, setUserScrolled] = useState<boolean>(false);
 
-  const name = getFirstName() || "User";
   const userImage = session?.user?.image || "/default-user-avatar.png";
 
   const serviceType = localStorage.getItem("serviceType") || "our services";
