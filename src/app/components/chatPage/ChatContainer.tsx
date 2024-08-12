@@ -20,6 +20,7 @@ const ChatContainer = () => {
   const [prompt, setPrompt] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isBrowser, setIsBrowser] = useState<boolean>(false);
 
   const { data: session } = useSession();
   const name = useExtractFirstName() || "User";
@@ -28,23 +29,28 @@ const ChatContainer = () => {
 
   const userImage = session?.user?.image || "/default-user-avatar.png";
 
-  const serviceType = sessionStorage.getItem("serviceType") || "our services";
+  // const serviceType = sessionStorage.getItem("serviceType") || "our services";
 
-  const serviceLocation =
-    sessionStorage.getItem("serviceLocation") || "your location";
+  // useEffect(() => {
+  //   setIsBrowser(
+  //     typeof window !== "undefined" &&
+  //       typeof window.sessionStorage !== "undefined"
+  //   );
+  // }, []);
 
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      typeof window.sessionStorage !== "undefined"
-    ) {
-      const storedMessages = sessionStorage.getItem("chatMessages");
-      if (storedMessages) {
-        setMessages(JSON.parse(storedMessages));
-        scrollToBottom();
-      }
-    }
-  }, [messages]);
+  // const serviceLocation =
+  //   sessionStorage.getItem("serviceLocation") || "your location";
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedMessages = sessionStorage.getItem("chatMessages");
+  //     if (storedMessages) {
+  //       setMessages(JSON.parse(storedMessages));
+  //       scrollToBottom();
+  //     }
+  //     return () => sessionStorage.removeItem("chatMessages");
+  //   }
+  // }, [messages, isBrowser]);
 
   const handleScroll = () => {
     const element = chatHistoryRef.current;
@@ -83,7 +89,7 @@ const ChatContainer = () => {
     const userMessage: Message = { role: "user", content: prompt };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
-    localStorage.setItem("chatMessages", JSON.stringify(newMessages));
+    // localStorage.setItem("chatMessages", JSON.stringify(newMessages));
     setPrompt("");
     setIsLoading(true);
 
@@ -95,7 +101,7 @@ const ChatContainer = () => {
       };
       const updatedMessages = [...newMessages, assistantMessage];
       setMessages(updatedMessages);
-      localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+      // localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
     } catch (error: any) {
       console.error(
         "Error calling OpenAI API:",
@@ -136,10 +142,10 @@ const ChatContainer = () => {
                   <h1 className="text-3xl text-neutral-100">
                     What can I help you with, {name}?
                   </h1>
-                  <p className="text-gray-400 text-[1.4rem]">
+                  {/* <p className="text-gray-400 text-[1.4rem]">
                     I see that you are interested in {serviceType} in and around{" "}
                     {serviceLocation}.
-                  </p>
+                  </p> */}
                   <p className="text-gray-400 text-[1.4rem]">
                     Please feel free to ask me any questions you may have.
                   </p>

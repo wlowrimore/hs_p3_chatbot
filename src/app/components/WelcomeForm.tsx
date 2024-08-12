@@ -5,7 +5,7 @@ import {
   useServiceDetails,
   WelcomeFormType,
 } from "../../providers/ServiceDetailsProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useExtractFirstName } from "../hooks/useExtractFirstName";
 import { IoMdLogOut } from "react-icons/io";
 import { signOut } from "next-auth/react";
@@ -20,10 +20,12 @@ const WelcomeForm: React.FC = () => {
     serviceType: "",
     serviceLocation: "",
   });
+  const [serviceType, setServiceType] = useState<string>("");
+  const [serviceLocation, setServiceLocation] = useState<string>("");
 
   const router = useRouter();
   const name = useExtractFirstName() || "User";
-
+  const slug = serviceType;
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -32,14 +34,25 @@ const WelcomeForm: React.FC = () => {
     return () => clearTimeout(timer);
   }, [isLoading]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const { name, value } = e.target;
+  // setServiceType(value);
+  // setServiceLocation(name);
+  // setServiceDetails((prevState: WelcomeFormType) => ({
+  //   ...prevState,
+  //   [name]: value,
+  // }));
+  // console.log("serviceDetails from WelcomeForm: ", serviceDetails);
+  // };
 
-    setServiceDetails((prevState: WelcomeFormType) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    console.log("serviceDetails from WelcomeForm: ", serviceDetails);
+  const handleServiceTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setServiceType(e.target.value);
+  };
+
+  const handleServiceLocationChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setServiceLocation(e.target.value);
   };
 
   const handleInputChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,14 +62,17 @@ const WelcomeForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    localStorage.setItem("serviceType", serviceDetails.serviceType);
-    localStorage.setItem("serviceLocation", serviceDetails.serviceLocation);
+    setServiceDetails((prevState: WelcomeFormType) => ({
+      ...prevState,
+      serviceType,
+      serviceLocation,
+    }));
     console.log(serviceDetails);
     console.log("Checked: ", isChecked);
 
     if (isChecked) {
       setIsLoading(false);
-      router.push("/chat-with-kal");
+      router.push("chat-with-kal");
     } else {
       alert("Please agree to the terms and conditions");
     }
@@ -105,8 +121,8 @@ const WelcomeForm: React.FC = () => {
                   <input
                     type="text"
                     name="serviceType"
-                    value={serviceDetails.serviceType}
-                    onChange={handleInputChange}
+                    value={serviceType}
+                    onChange={handleServiceTypeChange}
                     aria-label="Service Type"
                     placeholder="technology / shopping / repairs / etc"
                     className="w-full bg-purple-200 text-neutral-950 px-2 py-1 rounded-xl placeholder:text-sm placeholder:italic placeholder:text-neutral-600"
@@ -119,8 +135,8 @@ const WelcomeForm: React.FC = () => {
                   <input
                     type="text"
                     name="serviceLocation"
-                    value={serviceDetails.serviceLocation}
-                    onChange={handleInputChange}
+                    value={serviceLocation}
+                    onChange={handleServiceLocationChange}
                     aria-label="Location Where Service Needed"
                     required
                     placeholder="city / state / country"
@@ -146,11 +162,7 @@ const WelcomeForm: React.FC = () => {
               </div>
               <div className="flex justify-center my-4">
                 <button
-                  disabled={
-                    !isChecked ||
-                    !serviceDetails.serviceType ||
-                    !serviceDetails.serviceLocation
-                  }
+                  disabled={!isChecked || !serviceType || !serviceLocation}
                   type="submit"
                   className="disabled:opacity-40 w-full max-w-[75%] py-1 button-glow rounded-full"
                 >

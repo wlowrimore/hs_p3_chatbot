@@ -19,20 +19,20 @@ import { Fade } from "react-awesome-reveal";
 const BottomBar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   const { data: session } = useSession();
-  const storedServiceType = localStorage.getItem("serviceType");
-  const storedServiceLocation = localStorage.getItem("serviceLocation");
+  // const storedServiceType = localStorage.getItem("serviceType");
+  // const storedServiceLocation = localStorage.getItem("serviceLocation");
 
-  useEffect(() => {
-    if (storedServiceType && storedServiceLocation) {
-      console.log("serviceDetails: ", storedServiceType, storedServiceLocation);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (storedServiceType && storedServiceLocation) {
+  //     console.log("serviceDetails: ", storedServiceType, storedServiceLocation);
+  //   }
+  // }, []);
 
   const handleMenuVisibilityClick = () => {
     setIsMenuVisible(!isMenuVisible);
   };
 
-  const serviceDetails = { storedServiceType, storedServiceLocation };
+  // const serviceDetails = { storedServiceType, storedServiceLocation };
 
   return (
     <div className="md:hidden flex justify-between mx-auto px-4 pb-6 w-full">

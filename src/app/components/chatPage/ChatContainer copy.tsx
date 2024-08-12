@@ -11,21 +11,56 @@ import Image from "next/image";
 
 const ChatContainer = () => {
   const [prompt, setPrompt] = useState<string>("");
+  const [messages, setMessages] = useState<any[]>([]);
   const [storedPrompt, setStoredPrompt] = useState<string>("");
   const [prompts, setPrompts] = useState<string[]>([]);
+  const [serviceType, setServiceType] = useState<string>("");
+  const [serviceLocation, setServiceLocation] = useState<string>("");
+
+  let inMemoryMessages: any[] = [];
+  let inMemoryPrompts: string[] = [];
+  let inMemoryStoredPrompt: string = "";
+  let inMemoryServiceType: string = "";
+  let inMemoryServiceLocation: string = "";
 
   const { data: session } = useSession();
   const name = useExtractFirstName();
   const userImage = session?.user?.image;
 
-  const serviceType = localStorage.getItem("serviceType");
-  const serviceLocation = localStorage.getItem("serviceLocation");
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+  //     const serviceType = localStorage.getItem("serviceType");
+  //     const serviceLocation = localStorage.getItem("serviceLocation");
+  //     const storedMessages = sessionStorage.getItem("chatMessages");
+  //     const storedPrompts = sessionStorage.getItem("chatPrompts");
 
-  useEffect(() => {
-    if (session && prompts) {
-      getPrompt();
-    }
-  }, [prompts, session]);
+  //     if (serviceType) {
+  //       setServiceType(serviceType);
+  //     }
+  //     if (serviceLocation) {
+  //       setServiceLocation(serviceLocation);
+  //     }
+
+  //     if (storedMessages) {
+  //       setMessages(JSON.parse(storedMessages));
+  //     }
+  //     if (storedPrompts) {
+  //       setPrompts(JSON.parse(storedPrompts));
+  //     }
+  //   }
+  // }, []);
+
+  const handleSendMessage = (message: string) => {
+    const newMessages = [...messages, message];
+    setMessages(newMessages);
+    inMemoryMessages = newMessages;
+  };
+
+  // useEffect(() => {
+  //   if (session && prompts) {
+  //     getPrompt();
+  //   }
+  // }, [prompts, session]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -33,20 +68,35 @@ const ChatContainer = () => {
   };
 
   const getPrompt = () => {
-    const storedPrompt = localStorage.getItem("prompt");
-    if (storedPrompt) {
-      setStoredPrompt(storedPrompt);
-    }
+    return inMemoryStoredPrompt;
   };
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   let promptsArray = JSON.parse(sessionStorage.getItem("promps") || "[]");
+  //   promptsArray.push(prompt);
+  //   if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+  //     sessionStorage.setItem("promps", JSON.stringify(promptsArray));
+  //   }
+
+  //   handleSendMessage(prompt);
+  //   setPrompt("");
+  //   getPrompt();
+  //   setPrompts(promptsArray);
+  // };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let promptsArray = JSON.parse(localStorage.getItem("promps") || "[]");
+    let promptsArray = inMemoryPrompts;
     promptsArray.push(prompt);
-    localStorage.setItem("promps", JSON.stringify(promptsArray));
+    inMemoryPrompts = promptsArray;
+
+    handleSendMessage(prompt);
     setPrompt("");
-    getPrompt();
+    const storedPrompt = getPrompt();
+    setStoredPrompt(storedPrompt);
     setPrompts(promptsArray);
   };
 

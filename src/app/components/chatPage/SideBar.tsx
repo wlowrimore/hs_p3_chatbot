@@ -16,16 +16,16 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 
 const SideBar = () => {
   const { data: session } = useSession();
-  const storedServiceType = localStorage.getItem("serviceType");
-  const storedServiceLocation = localStorage.getItem("serviceLocation");
+  // const storedServiceType = localStorage.getItem("serviceType");
+  // const storedServiceLocation = localStorage.getItem("serviceLocation");
 
-  useEffect(() => {
-    if (storedServiceType && storedServiceLocation) {
-      console.log("serviceDetails: ", storedServiceType, storedServiceLocation);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (storedServiceType && storedServiceLocation) {
+  //     console.log("serviceDetails: ", storedServiceType, storedServiceLocation);
+  //   }
+  // }, []);
 
-  const serviceDetails = { storedServiceType, storedServiceLocation };
+  // const serviceDetails = { storedServiceType, storedServiceLocation };
 
   return (
     <div className="hidden pt-6 lg:flex flex-col min-h-screen">
@@ -48,30 +48,30 @@ const SideBar = () => {
       <div className="w-full h-[0.025rem] bg-gray-700 my-4"></div>
 
       {/* Sevice Details */}
-      {serviceDetails && (
-        <div className="flex flex-col items-center justify-start w-full mx-auto my-8 space-y-3">
-          <h3 className="text-sm text-neutral-300 uppercase font-semibold tracking-wider w-full flex justify-start mb-2">
-            Service Details
-          </h3>
-          <div className="flex flex-col w-full items-start pl-4">
-            <p className="flex items-center gap-1 mb-4">
-              <IoMdCheckmarkCircleOutline className="w-5 h-5 text-neutral-400" />
-              <span className="text-sm text-neutral-400">
-                {storedServiceType}
-              </span>
-            </p>
-          </div>
-          <div className="flex w-full items-center pb-4 pl-4">
-            <p className="flex items-center gap-1 mb-4">
-              <MdOutlineLocationOn className="w-6 h-6 ml-[-0.15rem] text-neutral-400/75" />
-              <span className="text-sm text-neutral-400">
-                {storedServiceLocation}
-              </span>
-            </p>
-          </div>
-          <div className="w-full h-[0.025rem] bg-gray-700 my-4"></div>
+      {/* {serviceDetails && ( */}
+      <div className="flex flex-col items-center justify-start w-full mx-auto space-y-3">
+        {/* <h3 className="text-sm text-neutral-300 uppercase font-semibold tracking-wider w-full flex justify-start mb-2">
+          Service Details
+        </h3> */}
+        <div className="flex flex-col w-full items-start pl-4">
+          <p className="flex items-center gap-1 mb-4">
+            {/* <IoMdCheckmarkCircleOutline className="w-5 h-5 text-neutral-400" /> */}
+            <span className="text-sm text-neutral-400">
+              {/* {storedServiceType} */}
+            </span>
+          </p>
         </div>
-      )}
+        <div className="flex w-full items-center pb-4 pl-4">
+          <p className="flex items-center gap-1 mb-4">
+            {/* <MdOutlineLocationOn className="w-6 h-6 ml-[-0.15rem] text-neutral-400/75" /> */}
+            <span className="text-sm text-neutral-400">
+              {/* {storedServiceLocation} */}
+            </span>
+          </p>
+        </div>
+        {/* <div className="w-full h-[0.025rem] bg-gray-700 my-4"></div> */}
+      </div>
+      {/* )} */}
 
       {/* Links */}
       <nav className="my-2 text-neutral-300">
