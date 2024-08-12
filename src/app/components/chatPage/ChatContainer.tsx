@@ -28,17 +28,17 @@ const ChatContainer = () => {
 
   const userImage = session?.user?.image || "/default-user-avatar.png";
 
-  const serviceType = localStorage.getItem("serviceType") || "our services";
+  const serviceType = sessionStorage.getItem("serviceType") || "our services";
 
   const serviceLocation =
-    localStorage.getItem("serviceLocation") || "your location";
+    sessionStorage.getItem("serviceLocation") || "your location";
 
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
-      typeof window.localStorage !== "undefined"
+      typeof window.sessionStorage !== "undefined"
     ) {
-      const storedMessages = localStorage.getItem("chatMessages");
+      const storedMessages = sessionStorage.getItem("chatMessages");
       if (storedMessages) {
         setMessages(JSON.parse(storedMessages));
         scrollToBottom();
