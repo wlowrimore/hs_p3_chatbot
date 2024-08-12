@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { getFirstName } from "../../lib/utils";
-
+import { useExtractFirstName } from "../hooks/useExtractFirstName";
 import GoogleLogo from "../../../public/logos/google.jpg";
 import SiteLogo from "../../../public/logos/site-logo.webp";
 import Image from "next/image";
@@ -13,7 +12,7 @@ import Loading from "../loading";
 const SignIn = () => {
   const { data: session, status } = useSession();
 
-  const name = getFirstName();
+  const name = useExtractFirstName();
 
   if (status === "loading") {
     return <Loading />;
