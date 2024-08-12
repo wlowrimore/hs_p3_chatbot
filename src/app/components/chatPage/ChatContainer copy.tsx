@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { ServiceDetailsProvider } from "@/providers/ServiceDetailsProvider";
-import { getFirstName } from "@/lib/utils";
+import { useExtractFirstName } from "@/app/hooks/useExtractFirstName";
 import SideBar from "./SideBar";
 
 import { RiGradienterLine } from "react-icons/ri";
@@ -15,7 +15,7 @@ const ChatContainer = () => {
   const [prompts, setPrompts] = useState<string[]>([]);
 
   const { data: session } = useSession();
-  const name = getFirstName();
+  const name = useExtractFirstName();
   const userImage = session?.user?.image;
 
   const serviceType = localStorage.getItem("serviceType");
