@@ -2,7 +2,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Deployed on Vercel
 
-Visit KAL [here](https://headstarter-p2-pantry-tracker.vercel.app/).
+Visit KAL [here](https://hs-p3-chatbot.vercel.app/).
 
 <img src="public/readme-images/signin.webp" alt="William Lowrimore" width="800" height="700">
 <img src="public/readme-images/welcome.webp" alt="William Lowrimore" width="800" height="700">
