@@ -12,8 +12,6 @@ import Loading from "../loading";
 const SignIn = () => {
   const { data: session, status } = useSession();
 
-  const name = useExtractFirstName();
-
   if (status === "loading") {
     return <Loading />;
   }

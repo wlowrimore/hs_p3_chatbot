@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useExtractFirstName } from "../hooks/useExtractFirstName";
 import { IoMdLogOut } from "react-icons/io";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import SiteLogo from "../../../public/logos/site-logo.webp";
 import SkeletonForm from "./ui/SkeletonForm";
@@ -22,7 +22,6 @@ const WelcomeForm: React.FC = () => {
   });
 
   const router = useRouter();
-  const { data: session } = useSession();
   const name = useExtractFirstName() || "User";
 
   useEffect(() => {
